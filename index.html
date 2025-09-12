@@ -1,129 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Tails For Days — Coming Soon</title>
-  <meta name="description" content="A happy, safe, enrichment-first doggy day care is launching soon in the West Midlands. Join the list to be first in line." />
-  <meta property="og:title" content="Tails For Days — Coming Soon" />
-  <meta property="og:description" content="A happy, safe, enrichment-first doggy day care is launching soon. Join the list!" />
-  <meta property="og:type" content="website" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tails for Days - Coming Soon</title>
   <style>
-    :root { --overlay: rgba(0,0,0,.45); }
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .hero {
-      position: relative;
-      min-height: 100%;
-      display: grid;
-      place-items: center;
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      color: #fff;
-      padding: 2rem;
-      isolation: isolate;
+      color: white;
+      font-family: Arial, sans-serif;
+      background: url('https://pasteboard.co/b3w785zPafu9.jpg') no-repeat center center fixed;
+      background-size: cover;
     }
-    .bg {
-      position: absolute; inset: 0; z-index: -2;
-     body {
-  background-image: url('https://i.pasteboard.co/b3w785zPafu9.jpg');
-  background-size: cover;
-  background-position: center;
-}
-      background-size: cover; background-position: center;
-      filter: brightness(0.8);
-    }
-    .shade {
-      position: absolute; inset: 0; z-index: -1;
-      background: linear-gradient(to bottom, rgba(0,0,0,.3), var(--overlay));
-    }
-    .card {
-      background: rgba(0,0,0,.55);
-      backdrop-filter: blur(2px);
-      padding: 1.5rem;
-      border-radius: 16px;
-      max-width: 720px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
       width: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* dark overlay so text is readable */
     }
-    h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: .5rem 0 1rem; }
-    p.lead { font-size: clamp(1rem, 2.5vw, 1.25rem); margin: 0 0 1.25rem; line-height: 1.6; }
-    form { display: flex; gap: .5rem; justify-content: center; flex-wrap: wrap; }
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 30px;
+    }
     input[type="email"] {
-      flex: 1 1 260px;
-      padding: .9rem 1rem;
-      border-radius: 10px;
+      padding: 10px;
+      width: 250px;
       border: none;
-      outline: none;
+      border-radius: 5px;
+      margin-right: 10px;
     }
     button {
-      padding: .9rem 1.1rem;
-      border: none; border-radius: 10px;
-      font-weight: 700; cursor: pointer;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #ff9800;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
     }
-    button.primary { background: #ffb300; color: #222; }
-    button.primary:hover { filter: brightness(0.95); }
-    .note { font-size: .9rem; opacity: .9; margin-top: .75rem; }
-    .success, .error { display: none; margin-top: .75rem; font-weight: 600; }
-    .success { color: #b6ffb4; }
-    .error { color: #ffd4d4; }
-    footer { position: absolute; left: 0; right: 0; bottom: 0; padding: .75rem; text-align: center; color: #eee; font-size: .85rem; }
-    a { color: #fff; text-decoration: underline; text-underline-offset: 3px; }
+    button:hover {
+      background: #e68900;
+    }
   </style>
 </head>
 <body>
-  <main class="hero" role="main">
-    <div class="bg" aria-hidden="true"></div>
-    <div class="shade" aria-hidden="true"></div>
-
-    <section class="card" aria-label="Coming soon">
-      <h1>🐾 Doggy Day Care — Coming Soon</h1>
-      <p class="lead">A joyful, enrichment-first day care for dogs in the West Midlands. Safe play, calm rest, and lots of love. Be first to hear when we launch.</p>
-
-      <!-- Replace FORM_ENDPOINT_HERE with your Formspree endpoint -->
-      <form id="notify" action="https://formspree.io/f/FORM_ENDPOINT_HERE" method="POST">
-        <label class="sr-only" for="email">Email</label>
-        <input id="email" name="email" type="email" placeholder="Your email address" required aria-label="Email address" />
-        <button class="primary" type="submit">Notify Me</button>
-        <input type="hidden" name="_subject" value="New early-bird signup" />
-      </form>
-
-      <p class="note">No spam. Unsubscribe anytime.</p>
-      <p id="success" class="success" role="status">Thanks! You’re on the list 🐶</p>
-      <p id="error" class="error" role="alert">Hmm, something went wrong. Please try again.</p>
-    </section>
-
-    <footer>
-      Photo via Unsplash. You can replace it with your own brand image anytime.
-    </footer>
-  </main>
-
-  <script>
-    // Lightweight JS to handle Formspree success/error without leaving the page
-    const form = document.getElementById('notify');
-    const success = document.getElementById('success');
-    const errorMsg = document.getElementById('error');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      success.style.display = 'none';
-      errorMsg.style.display = 'none';
-
-      const formData = new FormData(form);
-      try {
-        const res = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          success.style.display = 'block';
-        } else {
-          errorMsg.style.display = 'block';
-        }
-      } catch {
-        errorMsg.style.display = 'block';
-      }
-    });
-  </script>
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>Sit. Stay. We’re Launching Soon!</h1>
+    <p>Sign up to fetch updates about Tails for Days 🐾</p>
+    <form>
+      <input type="email" placeholder="Enter your email" required />
+      <button type="submit">Fetch Updates</button>
+    </form>
+  </div>
 </body>
 </html>
